@@ -1,6 +1,9 @@
 package org.jfree.data.test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.TimeZone;
 
@@ -343,6 +346,7 @@ public class QuarterClassTest {
          //Q=maxvalue 2023 out of range
          //arrange
          arrange(6,2023);
+         //assert
          System.out.println(quarter.next());
      }
      @Test
@@ -350,7 +354,134 @@ public class QuarterClassTest {
         //Q4 2023
         //arrange
         arrange(4,2023);
+        //assert
         assertEquals(new Quarter(1, 2024),quarter.next());
     }
-
+    //////////// Test getSerialIndex ////////////
+    @Test
+    public void testGetSerialIndex1() {
+        //Q1 2023
+        //arrange
+        arrange(1,2023);
+        //assert
+        assertEquals(quarter.getYear().getYear()*4+quarter.getQuarter(),quarter.getSerialIndex());
+    }
+    @Test
+    public void testGetSerialIndex2() {
+        //Q2 2023
+        //arrange
+        arrange(2,2023);
+        //assert
+        assertEquals(quarter.getYear().getYear()*4+quarter.getQuarter(),quarter.getSerialIndex());
+    }
+    @Test
+    public void testGetSerialIndex3() {
+        //Q3 2023
+        //arrange
+        arrange(3,2023);
+        //assert
+        assertEquals(quarter.getYear().getYear()*4+quarter.getQuarter(),quarter.getSerialIndex());
+    }
+    @Test
+    public void testGetSerialIndex4() {
+        //Q4 2023
+        //arrange
+        arrange(4,2023);
+        //assert
+        assertEquals(quarter.getYear().getYear()*4+quarter.getQuarter(),quarter.getSerialIndex());
+    }
+    //////////// Test equals ////////////
+    @Test
+    public void testEquals1() {
+        //Q1 2023 
+        //Q1 2023
+        //arrange
+        arrange(1,2023);
+        Quarter q=new Quarter(1,2023);
+        //assert
+        assertTrue(quarter.equals(q));
+    }
+    @Test
+    public void testEquals2() {
+        //Q1 2023 
+        //Q2 2023
+        //arrange
+        arrange(1,2023);
+        Quarter q=new Quarter(2,2023);
+        //assert
+        assertFalse(q.equals(quarter));
+    }
+    @Test
+    public void testEquals3() {
+        //Q1 2023 
+        //Q1 2024
+        //arrange
+        arrange(1,2023);
+        Quarter q=new Quarter(1,2024);
+        //assert
+        assertFalse(q.equals(quarter));
+    }
+    @Test
+    public void testEquals4() {
+        //Q1 2023 
+        //Q4 2024
+        //arrange
+        arrange(1,2023);
+        Quarter q=new Quarter(4,2024);
+        //assert
+        assertFalse(q.equals(quarter));
+    }
+    //////////// Test hashCode ////////////
+    @Test
+    public void testHashcode1() {
+        //Q1 2023 
+        //Q1 2023
+        //arrange
+        arrange(1,2023);
+        Quarter q=new Quarter(1,2023);
+        //act
+        int h1=quarter.hashCode();
+        int h2=q.hashCode();
+        //assert
+        assertEquals(h1,h2);
+    }
+    @Test
+    public void testHashcode2() {
+        //Q1 2023 
+        //Q4 2024
+        //arrange
+        arrange(1,2023);
+        Quarter q=new Quarter(4,2024);
+        //act
+        int h1=quarter.hashCode();
+        int h2=q.hashCode();
+        //assert
+        assertNotEquals(h1,h2);
+    }
+    @Test
+    public void testHashcode3() {
+        //Q1 2023 
+        //Q1 2024
+        //arrange
+        arrange(1,2023);
+        Quarter q=new Quarter(1,2024);
+        //act
+        int h1=quarter.hashCode();
+        int h2=q.hashCode();
+        //assert
+        assertNotEquals(h1,h2);
+    }
+    @Test
+    public void testHashcode4() {
+        //Q1 2023 
+        //Q4 2023
+        //arrange
+        arrange(1,2023);
+        Quarter q=new Quarter(4,2023);
+        //act
+        int h1=quarter.hashCode();
+        int h2=q.hashCode();
+        //assert
+        assertNotEquals(h1,h2);
+    }
 }
