@@ -484,4 +484,15 @@ public class QuarterClassTest {
         //assert
         assertNotEquals(h1,h2);
     }
+    @Test
+    public void testHashcode5() {
+        //gurantee that it won't be change
+        //arrange
+        arrange(1,2023);
+        //act
+        int h1=quarter.hashCode();
+        int h2=quarter.hashCode();
+        //assert
+        assertEquals(h1,h2);
+    }
 }
