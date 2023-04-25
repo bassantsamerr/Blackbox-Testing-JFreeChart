@@ -1,5 +1,6 @@
 package org.jfree.data.test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.TimeZone;
 
@@ -224,4 +225,132 @@ public class QuarterClassTest {
         assertEquals(2023, quarter.getYear().getYear());
         assertEquals(2, quarter.getQuarter());
     }
+    //////////// Test getQuarter ////////////
+    @Test
+    public void testgetQuarter() {
+        //arrange
+        arrange(2,2023);
+        //assert
+        assertEquals(2, quarter.getQuarter());
+    }
+    //////////// Test getQuarter ////////////
+    @Test
+    public void testgetYear() {
+        //arrange
+        Year year=new Year(2023);
+        arrange(2,year);
+        //assert
+        assertEquals(2023, quarter.getYear().getYear());
+    }
+    //////////// Test Previous  ////////////
+    @Test
+    public void testPrevious1() {
+        //default case
+        //arrange
+        arrange(2,2023);
+        //assert
+        assertEquals(new Quarter(1, 2023),quarter.previous());
+    }
+    @Test
+    public void testPrevious2() {
+        //Q1 1900 case
+        //arrange
+        arrange(1,1900);
+        //assert
+        assertNull(quarter.previous());
+    }
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testPrevious3() {
+        //Q4 1899 out of range
+        //arrange
+        arrange(4,1899);
+        //assert
+        assertEquals(new Quarter(3, 1899),quarter.previous());
+    }
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testPrevious4() {
+        //Q1 10000 out of range
+        //arrange
+        arrange(1,10000);
+        //assert
+        assertEquals(new Quarter(4, 9999),quarter.previous());
+    }
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testPrevious5() {
+        //Q0 2023 out of range
+        //Q=minvaluew 2023 out of range
+        //arrange
+        arrange(Integer.MIN_VALUE,2023);
+    }
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testPrevious6() {
+        //Q5 2023 out of range
+        //Q=maxvalue 2023 out of range
+        //arrange
+        arrange(6,2023);
+        System.out.println(quarter.previous());
+    }
+    @Test
+    public void testPrevious7() {
+        //Q1 2023
+        //arrange
+        arrange(1,2023);
+        assertEquals(new Quarter(4, 2022),quarter.previous());
+    }
+     //////////// Test next  ////////////
+     @Test
+     public void testNext1() {
+         //default case
+         //arrange
+         arrange(2,2023);
+         //assert
+         assertEquals(new Quarter(3, 2023),quarter.next());
+     }
+     @Test
+     public void testNext2() {
+         //Q4 9999 case
+         //arrange
+         arrange(4,9999);
+         //assert
+         assertNull(quarter.next());
+     }
+     @Test(expected = java.lang.IllegalArgumentException.class)
+     public void testNext3() {
+         //Q4 1899 out of range
+         //arrange
+         arrange(4,1899);
+         //assert
+         assertEquals(new Quarter(3, 1899),quarter.next());
+     }
+     @Test(expected = java.lang.IllegalArgumentException.class)
+     public void testNext4() {
+         //Q1 10000 out of range
+         //arrange
+         arrange(1,10000);
+         //assert
+         assertEquals(new Quarter(4, 9999),quarter.next());
+     }
+     @Test(expected = java.lang.IllegalArgumentException.class)
+     public void testNext5() {
+         //Q0 2023 out of range
+         //Q=minvaluew 2023 out of range
+         //arrange
+         arrange(Integer.MIN_VALUE,2023);
+     }
+     @Test(expected = java.lang.IllegalArgumentException.class)
+     public void testNext6() {
+         //Q5 2023 out of range
+         //Q=maxvalue 2023 out of range
+         //arrange
+         arrange(6,2023);
+         System.out.println(quarter.next());
+     }
+     @Test
+    public void testNext7() {
+        //Q4 2023
+        //arrange
+        arrange(4,2023);
+        assertEquals(new Quarter(1, 2024),quarter.next());
+    }
+
 }
