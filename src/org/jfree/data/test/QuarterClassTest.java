@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Date;
 import java.util.TimeZone;
 
 import org.jfree.data.time.Quarter;
@@ -488,10 +489,25 @@ public class QuarterClassTest {
     public void testHashcode5() {
         //gurantee that it won't be change
         //arrange
-        arrange(1,2023);
+        arrange(2,2023);
+        Quarter q=new Quarter();
         //act
         int h1=quarter.hashCode();
-        int h2=quarter.hashCode();
+        int h2=q.hashCode();
+        //assert
+        assertEquals(h1,h2);
+    }
+    @Test
+    public void testHashcode7() {
+        //gurantee that it won't be change
+        //arrange
+        arrange();
+        java.util.Date time= new java.util.Date();
+        TimeZone zone = TimeZone.getTimeZone("");
+        Quarter q=new Quarter(time,zone);
+        //act
+        int h1=quarter.hashCode();
+        int h2=q.hashCode();
         //assert
         assertEquals(h1,h2);
     }
