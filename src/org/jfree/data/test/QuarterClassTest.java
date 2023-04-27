@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -509,6 +510,116 @@ public class QuarterClassTest {
         int h1=quarter.hashCode();
         int h2=q.hashCode();
         //assert
-        assertEquals(h1,h2);
+        assertEquals(h10,h2);
     }
+    @Test
+    public void testCompareTo1(){
+        Quarter q1=new Quarter(1,2023);
+        Quarter q2=new Quarter(1,2023);
+        assertTrue(q1.compareTo(q2)==0);
+    
+    }
+    @Test
+    public void testCompareTo2(){
+        Quarter q1=new Quarter(1,2023);
+        Quarter q2=new Quarter(1,2020);
+        assertTrue(q1.compareTo(q2)>0);
+    }
+    @Test
+    public void testCompareTo3(){
+        Quarter q1=new Quarter(1,2020);
+        Quarter q2=new Quarter(1,2023);
+        assertTrue(q1.compareTo(q2)<0);
+    }
+    @Test
+    public void testCompareTo4(){
+        Quarter q1=new Quarter(3,2023);
+        Quarter q2=new Quarter(2,2023);
+        assertTrue(q1.compareTo(q2)>0);
+    }
+    @Test
+    public void testCompareTo5(){
+        Quarter q1=new Quarter(1,2023);
+        Quarter q2=new Quarter(4,2023);
+        assertTrue(q1.compareTo(q2)<0);
+    }
+    @Test
+    public void testToString1(){
+        Quarter q1=new Quarter(1,2002);
+        assertEquals("Q1/2002", q1.toString());
+    }
+    @Test
+    public void testToString2(){
+        Quarter q1=new Quarter(1,2002);
+        assertNotEquals("Q1-2002", q1.toString());
+    }
+    @Test
+    public void testgetFirstMillisecond() {
+        arrange(1, 2000);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2000, Calendar.JANUARY, 1, 0, 0, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        long firstMillisecond = calendar.getTimeInMillis();
+        assertEquals(firstMillisecond, quarter.getFirstMillisecond());
+
+    }
+    @Test
+    public void testgetLastMillisecond() {
+        arrange(1, 2023);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2023, Calendar.MARCH, 31, 23, 59, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        long lastMillisecond = calendar.getTimeInMillis();
+        assertEquals(lastMillisecond, quarter.getLastMillisecond());
+
+    }
+    @Test
+    public void testParseQuarter1() {
+        Quarter expectedQuarter = new Quarter(1, 2022);
+        Quarter actualQuarter = Quarter.parseQuarter("Q1-2022");
+        assertEquals(expectedQuarter, actualQuarter);
+    }
+    @Test
+    public void testParseQuarter2() {
+        Quarter expectedQuarter = new Quarter(1, 2022);
+        Quarter actualQuarter = Quarter.parseQuarter("2022-Q1");
+        assertEquals(expectedQuarter, actualQuarter);
+    }
+    @Test
+    public void testParseQuarter3() {
+        Quarter expectedQuarter = new Quarter(1, 2022);
+        Quarter actualQuarter = Quarter.parseQuarter("Q1/2022");
+        assertEquals(expectedQuarter, actualQuarter);
+    }
+    @Test
+    public void testParseQuarter4() {
+        Quarter expectedQuarter = new Quarter(1, 2022);
+        Quarter actualQuarter = Quarter.parseQuarter("2022/Q1");
+        assertEquals(expectedQuarter, actualQuarter);
+    }
+    @Test
+    public void testParseQuarter5() {
+        Quarter expectedQuarter = new Quarter(1, 2022);
+        Quarter actualQuarter = Quarter.parseQuarter("Q1 2022");
+        assertEquals(expectedQuarter, actualQuarter);
+    }
+    @Test
+    public void testParseQuarter6() {
+        Quarter expectedQuarter = new Quarter(1, 2022);
+        Quarter actualQuarter = Quarter.parseQuarter("2022 Q1");
+        assertEquals(expectedQuarter, actualQuarter);
+    }
+    @Test
+    public void testParseQuarter7() {
+        Quarter expectedQuarter = new Quarter(1, 2022);
+        Quarter actualQuarter = Quarter.parseQuarter("Q1,2022");
+        assertEquals(expectedQuarter, actualQuarter);
+    }
+    @Test
+    public void testParseQuarter8() {
+        Quarter expectedQuarter = new Quarter(1, 2022);
+        Quarter actualQuarter = Quarter.parseQuarter("2022,Q1");
+        assertEquals(expectedQuarter, actualQuarter);
+    }
+
 }
