@@ -510,8 +510,9 @@ public class QuarterClassTest {
         int h1=quarter.hashCode();
         int h2=q.hashCode();
         //assert
-        assertEquals(h10,h2);
+        assertEquals(h1,h2);
     }
+    //////////// Test CompareTo ////////////
     @Test
     public void testCompareTo1(){
         Quarter q1=new Quarter(1,2023);
@@ -543,6 +544,7 @@ public class QuarterClassTest {
         Quarter q2=new Quarter(4,2023);
         assertTrue(q1.compareTo(q2)<0);
     }
+    //////////// Test ToString ////////////
     @Test
     public void testToString1(){
         Quarter q1=new Quarter(1,2002);
@@ -554,7 +556,8 @@ public class QuarterClassTest {
         assertNotEquals("Q1-2002", q1.toString());
     }
     @Test
-    public void testgetFirstMillisecond() {
+    //////////// Test getFirstMillisecond ////////////
+    public void testgetFirstMillisecond1() {
         arrange(1, 2000);
         Calendar calendar = Calendar.getInstance();
         calendar.set(2000, Calendar.JANUARY, 1, 0, 0, 0);
@@ -564,15 +567,50 @@ public class QuarterClassTest {
 
     }
     @Test
-    public void testgetLastMillisecond() {
+    public void testgetFirstMillisecond2() {
+        arrange(1, 1900);
+        Calendar cal = Calendar.getInstance();
+        cal.set(1900, Calendar.JANUARY, 1, 0, 0, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        assertEquals(quarter.getFirstMillisecond(), cal.getTimeInMillis());
+    }
+
+    @Test
+    public void testgetFirstMillisecond3() {
+        arrange(4, 9999);
+        Calendar cal = Calendar.getInstance();
+        cal.set(9999, Calendar.OCTOBER, 1, 0, 0, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        assertEquals(quarter.getFirstMillisecond(), cal.getTimeInMillis());
+    }
+    //////////// Test getLastMillisecond ////////////
+    @Test
+    public void testgetLastMillisecond1() {
         arrange(1, 2023);
         Calendar calendar = Calendar.getInstance();
         calendar.set(2023, Calendar.MARCH, 31, 23, 59, 59);
         calendar.set(Calendar.MILLISECOND, 999);
         long lastMillisecond = calendar.getTimeInMillis();
         assertEquals(lastMillisecond, quarter.getLastMillisecond());
-
     }
+    @Test
+    public void testgetLastMillisecond2() {
+        arrange(4, 9999);
+        Calendar cal = Calendar.getInstance();
+        cal.set(9999, Calendar.DECEMBER, 31, 23, 59, 59);
+        cal.set(Calendar.MILLISECOND, 999);
+        assertEquals(quarter.getLastMillisecond(), cal.getTimeInMillis());
+    }
+
+    @Test
+    public void testgetLastMillisecond3() {
+        arrange(1, 1900);
+        Calendar cal = Calendar.getInstance();
+        cal.set(1900, Calendar.MARCH, 31, 23, 59, 59);
+        cal.set(Calendar.MILLISECOND, 999);
+        assertEquals(quarter.getLastMillisecond(), cal.getTimeInMillis());
+    }
+    //////////// Test ParseQuarter ////////////
     @Test
     public void testParseQuarter1() {
         Quarter expectedQuarter = new Quarter(1, 2022);
