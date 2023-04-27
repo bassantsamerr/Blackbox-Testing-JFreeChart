@@ -4,11 +4,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-
 import org.jfree.data.time.Quarter;
 import org.jfree.data.time.Year;
 import org.junit.Test;
@@ -211,12 +209,12 @@ public class QuarterClassTest {
     }
     @Test
     public void testQuarterParamCtorDate3() {
-        //year = 9999
+        //Quarter = 1
         //arrange
         java.util.Date time= new java.util.Date(9999);
         arrange(time);
         //assert
-        assertEquals(9999, quarter.getYear().getYear());
+        assertEquals(1, quarter.getQuarter());
     }
     //////////// 3nd param Ctor java.util.Date time - java.util.TimeZone zone ////////////
     @Test
@@ -238,7 +236,7 @@ public class QuarterClassTest {
         //assert
         assertEquals(2, quarter.getQuarter());
     }
-    //////////// Test getQuarter ////////////
+    //////////// Test getYear ////////////
     @Test
     public void testgetYear() {
         //arrange
@@ -499,7 +497,7 @@ public class QuarterClassTest {
         assertEquals(h1,h2);
     }
     @Test
-    public void testHashcode7() {
+    public void testHashcode6() {
         //gurantee that it won't be change
         //arrange
         arrange();
