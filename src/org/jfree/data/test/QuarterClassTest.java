@@ -657,5 +657,28 @@ public class QuarterClassTest {
         Quarter actualQuarter = Quarter.parseQuarter("2022,Q1");
         assertEquals(expectedQuarter, actualQuarter);
     }
-
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testParseQuarter9() {
+        Quarter expectedQuarter = new Quarter(5, 2022);
+        Quarter actualQuarter = Quarter.parseQuarter("2022,Q5");
+        assertEquals(expectedQuarter, actualQuarter);
+    }
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testParseQuarter10() {
+        Quarter expectedQuarter = new Quarter(0, 2022);
+        Quarter actualQuarter = Quarter.parseQuarter("2022,Q0");
+        assertEquals(expectedQuarter, actualQuarter);
+    }
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testParseQuarter11() {
+        Quarter expectedQuarter = new Quarter(1, 10000);
+        Quarter actualQuarter = Quarter.parseQuarter("10000,Q1");
+        assertEquals(expectedQuarter, actualQuarter);
+    }
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testParseQuarter12() {
+        Quarter expectedQuarter = new Quarter(1, 1899);
+        Quarter actualQuarter = Quarter.parseQuarter("1899,Q1");
+        assertEquals(expectedQuarter, actualQuarter);
+    }
 }
